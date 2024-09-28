@@ -8,17 +8,25 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
 
     const register = async (userData) => {
-        const response = await axios.post('http://localhost:5000/api/auth/register', userData);
-        setUser(response.data.user);
-        setToken(response.data.token);
-        localStorage.setItem('token', response.data.token); // Store token in localStorage
+        try {
+            const response = await axios.post('http://localhost:5000/api/users/register/', userData);
+            setUser(response.data.user);
+            setToken(response.data.token);
+            localStorage.setItem('token', response.data.token); // Store token in localStorage
+        } catch (error) {
+            console.error('Error during registration:', error);
+        }
     };
 
     const login = async (userData) => {
-        const response = await axios.post('http://localhost:5000/api/auth/login', userData);
-        setUser(response.data.user);
-        setToken(response.data.token);
-        localStorage.setItem('token', response.data.token); // Store token in localStorage
+        try {
+            const response = await axios.post('http://localhost:5000/api/users/login/', userData);
+            setUser(response.data.user);
+            setToken(response.data.token);
+            localStorage.setItem('token', response.data.token); // Store token in localStorage
+        } catch (error) {
+            console.error('Error during login:', error);
+        }
     };
 
     const logout = () => {
