@@ -1,12 +1,21 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
+import 'dotenv/config';
+import express from 'express';
+import mongoose from 'mongoose';
+
+//importing routes
+import userRoutes from './routes/userRoutes.js';
+import taskRoutes from './routes/taskRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
+
+
+// Routes
+app.use('/api/users', userRoutes);
+app.use('/api/tasks', taskRoutes);
 
 // Database connection
 mongoose.connect(process.env.MONGO_URI)
